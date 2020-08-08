@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <Name>LockoutPlanner</Name>
+    <ProjectGuid>36b179eb-4339-4e81-b3a3-de5731e93e31</ProjectGuid>
+    <AssemblyName>LockoutPlanner</AssemblyName>
+    <RootNamespace>LockoutPlanner</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Default' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include=".pkgmeta" />
+    <Content Include="CHANGELOG" />
+    <Content Include="localization.core.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="locales\localization.de.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="LockoutPlanner.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="LockoutPlanner.toc">
+      <SubType>TableOfContents</SubType>
+    </Content>
+    <Content Include="LockoutPlannerDB.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="LockoutPlannerDBData.lua">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="locales" />
+  </ItemGroup>
+  <Import Project="$(DevEnvDir)\Extensions\Tools\MSBuild\AddonStudio\Wow\3.0\WowAddonStudio.targets" />
+  <!--
+  To modify your build process, add your task inside one of the targets below and uncomment it.
+  <Target Name="BeforeClean"></Target>
+  <Target Name="AfterClean"></Target>
+  <Target Name="BeforeRebuild"></Target>
+  <Target Name="AfterRebuild"></Target>
+  <Target Name="BeforeDeploy"></Target>
+  <Target Name="AfterDeploy"></Target>
+  -->
+</Project>

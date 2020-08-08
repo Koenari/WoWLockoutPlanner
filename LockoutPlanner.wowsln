@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# WowAddOnStudio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E6E1D386-69D8-4755-9E61-0950293915FC}") = "LockoutPlanner", "LockoutPlanner.wowproj", "{36B179EB-4339-4E81-B3A3-DE5731E93E31}"
+EndProject
+Project("{E6E1D386-69D8-4755-9E61-0950293915FC}") = "MyInstanceLocks", "..\MIL\MyInstanceLocks\MyInstanceLocks.wowproj", "{70B0ED9E-03D8-4122-AFC6-38C4E4F68D14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Any CPU = Default|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36B179EB-4339-4E81-B3A3-DE5731E93E31}.Default|Any CPU.ActiveCfg = Default|Any CPU
+		{36B179EB-4339-4E81-B3A3-DE5731E93E31}.Default|Any CPU.Build.0 = Default|Any CPU
+		{70B0ED9E-03D8-4122-AFC6-38C4E4F68D14}.Default|Any CPU.ActiveCfg = Default|Any CPU
+		{70B0ED9E-03D8-4122-AFC6-38C4E4F68D14}.Default|Any CPU.Build.0 = Default|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
