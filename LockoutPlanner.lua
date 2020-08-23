@@ -14,22 +14,27 @@
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -- This file is loaded from "LockoutPlanner.toc"
-LOP = {}
 LOP.internalLog = {}
 LOP.allowedCommands = {}
 LOP.allowedInstanceTypes = {}
 LOP.allowedAddOns = {}
+local L = MyLocalizationTable;
 --Helper Functions-------------------------------------------------
-function LOP.printMessage(msg)
+function printf(s,...)
+	print(s:format(...));
+end
+function LOP.printMessage(msg,...)
+	local message = msg:format(...);
     if IsInGroup() then
-        SendChatMessage(msg, "PARTY");
+        SendChatMessage(message, "PARTY");
     else
-        print(msg);
+        print(message);
     end
 end
 
 function LOP.log(msg)
-    table.insert(LOP.internalLog, msg)
+    table.insert(LOP.internalLog, msg);
+	print(msg);
 end
 
 function LOP.isPartOfAddon(name, addon)
@@ -63,7 +68,7 @@ function LOP.getPrintableInstanceType(instanceType)
     elseif  instanceType == "dungeon"   then return "Dungeon"
     elseif  instanceType == "all"       then return "All Types"
     end
-    return "Unknown Type: " .. shortName
+    return L["Unknown Type"] ..": " .. shortName
 end
 
 function LOP.Set(list)
@@ -82,19 +87,24 @@ function LOP.parseArguments(msg)
       table.insert(argv, string.lower(w))
     end)
     command, instanceType, addonType = LOP.getDefaultArguments();
-    
     --parse commands
     if argv[1] ~= nil then
         if  argv[1] == "help" then
             return "help", instanceType, addonType
         elseif  argv[1] == "show" then
             command = "show"
+		elseif  argv[1] == "planned" then
+            command = "planned"
+		elseif  argv[1] == "add" then
+            return "add", string.sub(msg,5,-1), addonType
+		elseif  argv[1] == "remove" then
+            return "remove", string.sub(msg,8,-1), addonType
+		elseif  argv[1] == "opt" then
+            return "opt", instanceType, addonType
         elseif  argv[1] == "log" then
             return "log", instanceType, addonType
         else
-            command = "show"
-            argv[3] = argv[2]
-            argv[2] = argv[1]
+            command = "help"
         end
     end
     --parse InstanceType
@@ -140,115 +150,194 @@ end
 
 function LOP.HandleSlash(args)
     cmd, instanceType, addonType = LOP.parseArguments(args);
-    
-    if cmd == "show" then
+    if cmd == "opt" then
+        LOP.showOptionsDialog();
+    elseif cmd == "show" then
         LOP.PrintSavedInstances(instanceType, addonType);
-    elseif cmd == "log" then
+	elseif cmd == "planned" then
+		LOP.printPlannedInstances(instanceType, addonType);
+    elseif cmd == "remove" then
+        LOP.deletePlannnedInstance(instanceType);
+	elseif cmd == "add" then
+        LOP.addPlannnedInstance(instanceType);
+	elseif cmd == "log" then
         LOP.printLog();
     else
         LOP.printHelp();
     end
 end
 function LOP.getDefaultArguments()
-    return milDefaultCommand, milDefaultInstanceType, milDefaultAddon
+    return lopDefaultCommand, lopDefaultInstanceType, lopDefaultAddon
 end
-function LOP.setDefaultArguments(arg_milDefaultCommand, arg_milDefaultInstanceType, arg_milDefaultAddon)
-	if(arg_milDefaultCommand ~= nil) then
-		if LOP.isPartOfSet(arg_milDefaultCommand, LOP.allowedCommands) then
-			milDefaultCommand = arg_milDefaultCommand
+function LOP.setDefaultArguments(arg_lopDefaultCommand, arg_lopDefaultInstanceType, arg_lopDefaultAddon)
+	if(arg_lopDefaultCommand ~= nil) then
+		if LOP.isPartOfSet(arg_lopDefaultCommand, LOP.allowedCommands) then
+			lopDefaultCommand = arg_lopDefaultCommand
 		else
-			print("MIL: " .. arg_milDefaultCommand .. " is not a valid command. Option is ignored")
+			printf(L["LOP: %s is not a valid command. Option is ignored"],arg_lopDefaultCommand);
 		end
 	end
-	if(arg_milDefaultInstanceType ~= nil) then
-		if LOP.isPartOfSet(arg_milDefaultInstanceType, LOP.allowedInstanceTypes) then
-			milDefaultInstanceType = arg_milDefaultInstanceType
+	if(arg_lopDefaultInstanceType ~= nil) then
+		if LOP.isPartOfSet(arg_lopDefaultInstanceType, LOP.allowedInstanceTypes) then
+			lopDefaultInstanceType = arg_lopDefaultInstanceType
 		else
-			print("MIL: " .. arg_milDefaultInstanceType .. " is not a valid instance type. Option is ignored")
+			printf(L["LOP: %s is not a valid instance type. Option is ignored"],arg_lopDefaultInstanceType)
 		end
 	end
-		if(arg_milDefaultAddon ~= nil) then
-		if LOP.isPartOfSet(arg_milDefaultAddon, LOP.allowedAddOns) then
-			milDefaultAddon = arg_milDefaultAddon
+		if(arg_lopDefaultAddon ~= nil) then
+		if LOP.isPartOfSet(arg_lopDefaultAddon, LOP.allowedAddOns) then
+			lopDefaultAddon = arg_lopDefaultAddon
 		else
-			print("MIL: " .. arg_milDefaultAddon .. " is not a valid addon. Option is ignored")
+			print(L["LOP: %s is not a valid addon. Option is ignored"],arg_lopDefaultAddon)
 		end
 	end
-
 end
 --Functionality----------------------------------------------------
 function LOP.PrintSavedInstances(wantedType, wantedAddon)
     instances = GetNumSavedInstances();
     if instances > 0 then
-        LOP.printMessage("== Saved Instances (" .. LOP.getPrintableInstanceType(wantedType) .. " / " .. LOP.getPrintableAddonName(wantedAddon) .. ") ==");
+        LOP.printMessage("== %s (%s / %s) ==",L["Saved Instances"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
         
         for instanceIdx = 1, instances do
             name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(instanceIdx);
-            if locked == true and LOP.isInstanceType(wantedType, isRaid) and LOP.isPartOfAddon(name, wantedAddon) then
+            if locked == true and LOP.isInstanceType(wantedType, isRaid) and LOP.DB.isPArtOfAddOn(LOP.DB.getID(name), wantedAddon) then
                 LOP.printInstance(name, difficultyName, encounterProgress, numEncounters); 
             end
         end
     end
 end
+function LOP.showOptionsDialog()
+    lopOptionsFrame:Show();
+end
 function LOP.printInstance(name,difficulty, encProgress, maxEnc)
-    message = string.format("%s (%s): %s / %s", name, difficultyName, encounterProgress, numEncounters);
-    LOP.printMessage(message);                
+    LOP.printMessage("%s (%s): %s / %s", name, difficultyName, encounterProgress, numEncounters);
+end
+function LOP.printPlannedInstances(wantedType, wantedAddon)
+	local savedInstances = {};
+	instances = GetNumSavedInstances();
+    if instances > 0 then
+		for instanceIdx = 1, instances do
+			name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(instanceIdx);
+			savedInstances[LOP.DB.getID(name)] = instanceIdx;
+		end
+	end
+	LOP.printMessage("== %s (%s / %s) ==",L["Planned Instances"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
+	for v in pairs(lopPlannedLockouts) do
+		if LOP.DB.isPArtOfAddOn(v, wantedAddon) and LOP.DB.isOfType(v,wantedType) then
+			if savedInstances[v] ~= nil then
+				name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(savedInstances[v]);
+				if locked then
+					if (numEncounters == encounterProgress) then
+						color = "|c0055ee55";
+					else
+						color = "|c00eeee55";
+					end
+				
+					LOP.printMessage("%s%s (%s - %s) Done: %s [%s/%s] |r",
+						color,
+						LOP.DB.getName(v),
+						LOP.getPrintableAddonName(LOP.DB.getAddon(v)), 
+						LOP.getPrintableInstanceType(LOP.DB.getType(v)),
+						difficultyName,
+						encounterProgress,
+						numEncounters					
+						)
+				else
+					LOP.printMessage("|c00ee5555%s (%s - %s)",LOP.DB.getName(v), LOP.getPrintableAddonName(LOP.DB.getAddon(v)), LOP.getPrintableInstanceType(LOP.DB.getType(v)))
+				end
+			end
+		end
+	end
+end
+function LOP.addPlannnedInstance(name)
+	local id = LOP.DB.getID(name)
+	if(id > 0) then
+		lopPlannedLockouts[id] = id
+		print(string.format(L["|c0055ee55<LOP> %s has been added to your planned instances"], name))
+	else
+		print(string.format(L["|c00ee5555<LOP> %s is not a valid instance name"], name))
+	end
+end
+function LOP.deletePlannnedInstance(name)
+	local id = LOP.DB.getID(name)
+	if(id > 0) then
+		lopPlannedLockouts[id] = nil
+		print(string.format(L["|c0055ee55<LOP> %s has been removed from your planned instances"], name))
+	else
+		print(string.format(L["|c00ee5555<LOP> %s is not a valid instance name"], name))
+	end
 end
 function LOP.printHelp()
-	print("<MIL> Available Slash commands")
-	print("<MIL> ------------------------------")
-	print("<MIL> /lo show <instanceType> <addOn>: prints your instance locks with specified type belonging to specified addon")
-	print([[<MIL> available <instanceTypes>: "raid", "dungeon", "all"]])
-	print([[<MIL> available <addOns>: "all","classic","bc","wotlk","cata","mop","wod","legion","bfa"]])
-	print("<MIL> /lo help: prints this message")
-	print("<MIL> /lo: executes command specified in options")
+	print("<LOP> Available Slash commands")
+	print("<LOP> ------------------------------")
+	print("<LOP> /lo show <instanceType> <addOn>: prints your instance locks with specified type belonging to specified addon")
+	print([[<LOP> available <instanceTypes>: "raid", "dungeon", "all"]])
+	print([[<LOP> available <addOns>: "all","classic","bc","wotlk","cata","mop","wod","legion","bfa"]])
+	print("<LOP> /lo planned <instanceType> <addOn>: prints a list of all your planned instance lockouts and shows which are done")
+	print("<LOP> /lo add <instance Name>: adds the instance with given name to the list of planned instances")
+	print("<LOP> /lo remove <instance Name>: removes the instance with given name from the list of planned instances")
+	print("<LOP> /lo help: prints this message")
+	print("<LOP> /lo: executes command specified in options")
 end
 
-function LOP.showOptionsDialog()
-    milOptionsFrame:Show();
-end
 
 function LOP.printLog()
-    print("MIL Log start -----------------------")
+    print("LOP Log start -----------------------")
     for i,v in ipairs(LOP.internalLog) do
         if v ~= nil then print(i,": ",v)
         else print(i,": tried to log nil")
         end
     end
-    
-    print("MIL Log end -----------------------")
+    print("LOP Log end -----------------------")
 end
 
 
 -- Setup Functions-------------------------------------------------
 function LOP.OnEvent(self, event, ...)
-    if event == "ADDON_LOADED" and ... == "MyInstanceLocks" then
-        if(milDefaultCommand == nil) then
-            LOP.initializeCVars();
-        end
+    if event == "ADDON_LOADED" and ... == "LockoutPlanner" then
+        LOP.initializeCVars();
 		LOP.initializeAllowedLists();
         LOP.registerCommand();
+		LOP.initDB();
         self:UnregisterEvent("ADDON_LOADED");
     end
 end
 
+function LOP.initDB()
+	for i=0,2500 do
+		v = LOP.DB.NameData[i]
+		if v ~= nil then
+			LOP.DB.IDData[v] = i
+		end
+	end
+end
+
 function LOP.registerCommand()
-    SLASH_MYLOCKOUTS1 = '/lockouts';
-    SLASH_MYLOCKOUTS1 = '/lo';
-    SlashCmdList['MYLOCKOUTS'] = LOP.HandleSlash;
+    SLASH_LOCKOUTPLANNER2 = '/lop';
+    SLASH_LOCKOUTPLANNER1 = '/lo';
+    SlashCmdList['LOCKOUTPLANNER'] = LOP.HandleSlash;
     LOP.log("AddOn Loaded");
 end
 
 function LOP.initializeCVars()
     LOP.log("Init CVars")
-    milDefaultCommand = "show";
-    milDefaultInstanceType = "all";
-    milDefaultAddon = "all";
+	if(lopDefaultCommand == nil) then 
+		lopDefaultCommand = "show";
+	end
+	if(lopDefaultInstanceType == nil) then 
+		lopDefaultInstanceType = "all";
+	end
+	if(lopDefaultAddon == nil) then 
+		lopDefaultAddon = "all";
+	end
+	if(lopPlannedLockouts == nil) then 
+		lopPlannedLockouts = {};
+	end
 
 end
 
 function LOP.initializeAllowedLists()
-	LOP.allowedCommands			= LOP.Set{"show","opt","help","log"}
+	LOP.allowedCommands			= LOP.Set{"show","opt","help","log", "planned", "add-planned", "remove-planned"}
 	LOP.allowedInstanceTypes	= LOP.Set{"raid", "dungeon", "all"}
 	LOP.allowedAddOns			= LOP.Set{"all","classic","bc","wotlk","cata","mop","wod","legion","bfa"}
 end

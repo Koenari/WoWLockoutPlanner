@@ -20,7 +20,9 @@ local function defaultFunc(L, key)
  -- We could complain loudly to allow localizers to see the error of their ways, 
  -- but, for now, just return the key as its own localization. This allows you to 
  -- avoid writing the default localization out explicitly.
- print("Localization error: String '",key,"' is missing for locale '",GetLocale(),"'!");
+	if not(GetLocale() == "enUS") then
+		print("Localization error: String '",key,"' is missing for locale '",GetLocale(),"'!");
+	end
  return key;
 end
-setmetatable(L, {__index=defaultFunc});
+MyLocalizationTable = setmetatable(L, {__index=defaultFunc});

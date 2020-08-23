@@ -14,4 +14,35 @@
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -- This file is loaded from "LockoutPlanner.toc
+LOP = {}
 LOP.DB = {}
+
+function LOP.DB.isPArtOfAddOn(id, wantedAddOn)
+	if(wantedAddOn == "all") then return true end
+	return (LOP.DB.AddonData[id] == wantedAddOn)
+end
+
+function LOP.DB.isOfType(id, wantedType)
+	if(wantedType == "all") then return true end
+	return (LOP.DB.TypeData[id] == wantedType)
+end
+
+function LOP.DB.getAddon(id)
+	return LOP.DB.AddonData[id]
+end
+
+function LOP.DB.getType(id)
+	return LOP.DB.TypeData[id]
+end
+
+function LOP.DB.getName(id)
+	return LOP.DB.NameData[id]
+end
+
+function LOP.DB.getID(name)
+	returnValue =  LOP.DB.IDData[name]
+	if returnValue == nil then
+		return 0
+	end
+	return returnValue
+end

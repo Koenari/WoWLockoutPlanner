@@ -4,7 +4,13 @@
 ## Author: Koenari
 ## X-Curse-Project-ID: 396692
 ## X-Min-Interface: 80000
+## SavedVariablesPerCharacter: lopPlannedLockouts,lopDefaultCommand, lopDefaultInstanceType, lopDefaultAddon
 
-Frame.xml
-LockoutPlanner.lua
+
 localization.core.lua
+locales\deDE.lua
+LockoutPlannerDB.lua
+LockoutPlannerDBData.lua
+LockoutPlannerOptions.xml
+LockoutPlannerOptions.lua
+LockoutPlanner.lua
