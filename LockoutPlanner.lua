@@ -221,7 +221,7 @@ function LOP.printPlannedInstances(wantedType, wantedAddon)
 			savedInstances[LOP.DB.getID(name)] = instanceIdx;
 		end
 	end
-	LOP.printMessage("== %s (%s / %s) ==",L["Planned Instances"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
+	printf("== %s (%s / %s) ==",L["Planned Instances"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
 	for v in pairs(lopPlannedLockouts) do
 		if LOP.DB.isPArtOfAddOn(v, wantedAddon) and LOP.DB.isOfType(v,wantedType) then
 			if savedInstances[v] ~= nil then
@@ -233,7 +233,7 @@ function LOP.printPlannedInstances(wantedType, wantedAddon)
 						color = "|c00eeee55";
 					end
 				
-					LOP.printMessage("%s%s (%s - %s) Done: %s [%s/%s] |r",
+					printf("%s%s (%s - %s) Done: %s [%s/%s] |r",
 						color,
 						LOP.DB.getName(v),
 						LOP.getPrintableAddonName(LOP.DB.getAddon(v)), 
@@ -243,7 +243,7 @@ function LOP.printPlannedInstances(wantedType, wantedAddon)
 						numEncounters					
 						)
 				else
-					LOP.printMessage("|c00ee5555%s (%s - %s)",LOP.DB.getName(v), LOP.getPrintableAddonName(LOP.DB.getAddon(v)), LOP.getPrintableInstanceType(LOP.DB.getType(v)))
+					printf("|c00ee5555%s (%s - %s)",LOP.DB.getName(v), LOP.getPrintableAddonName(LOP.DB.getAddon(v)), LOP.getPrintableInstanceType(LOP.DB.getType(v)))
 				end
 			end
 		end
@@ -253,18 +253,18 @@ function LOP.addPlannnedInstance(name)
 	local id = LOP.DB.getID(name)
 	if(id > 0) then
 		lopPlannedLockouts[id] = id
-		print(string.format(L["|c0055ee55<LOP> %s has been added to your planned instances"], name))
+		printf(L["|c0055ee55<LOP> %s has been added to your planned instances"], name)
 	else
-		print(string.format(L["|c00ee5555<LOP> %s is not a valid instance name"], name))
+		printf(L["|c00ee5555<LOP> %s is not a valid instance name"], name)
 	end
 end
 function LOP.deletePlannnedInstance(name)
 	local id = LOP.DB.getID(name)
 	if(id > 0) then
 		lopPlannedLockouts[id] = nil
-		print(string.format(L["|c0055ee55<LOP> %s has been removed from your planned instances"], name))
+		printf(L["|c0055ee55<LOP> %s has been removed from your planned instances"], name)
 	else
-		print(string.format(L["|c00ee5555<LOP> %s is not a valid instance name"], name))
+		print(L["|c00ee5555<LOP> %s is not a valid instance name"], name)
 	end
 end
 function LOP.printHelp()
