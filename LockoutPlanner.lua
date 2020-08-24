@@ -245,6 +245,8 @@ function LOP.printPlannedInstances(wantedType, wantedAddon)
 				else
 					printf("|c00ee5555%s (%s - %s)",LOP.DB.getName(v), LOP.getPrintableAddonName(LOP.DB.getAddon(v)), LOP.getPrintableInstanceType(LOP.DB.getType(v)))
 				end
+			else 
+				printf("|c00ee5555%s (%s - %s)",LOP.DB.getName(v), LOP.getPrintableAddonName(LOP.DB.getAddon(v)), LOP.getPrintableInstanceType(LOP.DB.getType(v)))
 			end
 		end
 	end
