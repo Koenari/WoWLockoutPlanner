@@ -1,6 +1,6 @@
 ## Interface: 80300
 ## Title: LockoutPlanner
-## Version: 8.3.0-1
+## Version: 8.3.0-1.1
 ## Author: Koenari
 ## X-Curse-Project-ID: 396692
 ## X-Min-Interface: 80000
