@@ -379,7 +379,7 @@ function LOP.initDB()
 	end
 	LOP.DB.IDData = lopDBIDData
 	LOP.DB.WB.IDData = lopDBWbIDData
-	if lopSavedVars["DBRev"] < LOP.DB.revision then
+	if lopSavedVars["DBRev"] < LOP.DB.revision or lopSavedVars["DBLocale"] ~= GetLocale() then
 		LOP.DB.IDData = {}
 		for i=0,2500 do
 			v = LOP.DB.NameData[i]
@@ -387,9 +387,10 @@ function LOP.initDB()
 				LOP.DB.IDData[v] = i
 			end
 		end
+		lopSavedVars["DBRev"] = LOP.DB.revision
 		lopDBIDData = LOP.DB.IDData
 	end
-	if lopSavedVars["WBDBRev"] < LOP.DB.WB.revision then
+	if lopSavedVars["WBDBRev"] < LOP.DB.WB.revision or lopSavedVars["DBLocale"] ~= GetLocale() then
 		LOP.DB.WB.IDData = {}
 		for i=0,150000 do
 			v = LOP.DB.WB.NameData[i]
@@ -397,8 +398,10 @@ function LOP.initDB()
 				LOP.DB.WB.IDData[v] = i
 			end
 		end
+		lopSavedVars["WBDBRev"] = LOP.DB.WB.revision
 		lopDBWbIDData = LOP.DB.WB.IDData
 	end
+	lopSavedVars["DBLocale"] = GetLocale()
 end
 
 function LOP.registerCommand()
