@@ -1,9 +1,9 @@
 ## Interface: 90001
 ## Title: LockoutPlanner
-## Version: 9.0.1-1.0
+## Version: 9.0.1-1.1
 ## Author: Koenari
 ## X-Curse-Project-ID: 396692
-## X-Min-Interface: 80000
+## X-Min-Interface: 90001
 ## SavedVariablesPerCharacter: lopPlannedLockouts,lopPlannedBossLockouts,lopDefaultCommand, lopDefaultInstanceType, lopDefaultAddon, lopWantsToBroadcast
 ## SavedVariables: lopSavedVars, lopDBIDData, lopDBWbIDData
 

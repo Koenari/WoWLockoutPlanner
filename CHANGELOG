@@ -1,1 +1,18 @@
+9.0.1-1.1
++ Support for World Bosses
++ Option to not broadcast in groups
++ Added Shadowlands dungeongs and raids
+* Optimization of loading times
+
+9.0.1-1.0
+* Changes to Option Frame Backdrop
+
+8.3.0-1.1
+* planned instances now shows instances that have ner been run
+* output regarging planned Instances is not shared with the group
+
 8.3.0-1
++ added Planing features
++ added localization support
++ added all features of MyLockouts
+* Revamped Database
