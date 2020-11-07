@@ -16,6 +16,7 @@
 -- This file is loaded from "LockoutPlanner.toc
 LOP = {}
 LOP.DB = {}
+LOP.DB.WB = {}
 
 function LOP.DB.isPArtOfAddOn(id, wantedAddOn)
 	if(wantedAddOn == "all") then return true end
@@ -41,6 +42,37 @@ end
 
 function LOP.DB.getID(name)
 	returnValue =  LOP.DB.IDData[name]
+	if returnValue == nil then
+		return 0
+	end
+	return returnValue
+end
+
+-- World Bosses
+function LOP.DB.WB.isPArtOfAddOn(id, wantedAddOn)
+	if(wantedAddOn == "all") then return true end
+	return (LOP.DB.WB.AddonData[id] == wantedAddOn)
+end
+
+function LOP.DB.WB.isOfType(id, wantedType)
+	if(wantedType == "all" or wantedType == "wb") then return true end
+	return false
+end
+
+function LOP.DB.WB.getType(id)
+	return "wb"
+end
+
+function LOP.DB.WB.getAddon(id)
+	return LOP.DB.WB.AddonData[id]
+end
+
+function LOP.DB.WB.getName(id)
+	return LOP.DB.WB.NameData[id]
+end
+
+function LOP.DB.WB.getID(name)
+	returnValue =  LOP.DB.WB.IDData[name]
 	if returnValue == nil then
 		return 0
 	end

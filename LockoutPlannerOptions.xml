@@ -1,14 +1,14 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd" xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="LockoutPlannerOptions.lua" />
-	<Frame name="lopOptionsFrame" hidden="true" parent="UIParent" toplevel="true" movable="true" frameStrata="DIALOG" enableMouse="true" inherits="BackdropTemplate">
+	<Frame name="lopOptionsFrame" inherits="BackdropTemplate" hidden="true" parent="UIParent" toplevel="true" movable="true" frameStrata="DIALOG" enableMouse="true">
 		<Size>
-			<AbsDimension x="387" y="213" />
+			<AbsDimension x="403" y="253" />
 		</Size>
 		<Anchors>
-			<Anchor point="CENTER" x="63" y="34" />
+			<Anchor point="CENTER" x="71" y="14" />
 		</Anchors>
 		<KeyValues>
-			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
 		</KeyValues>
 		<Layers>
 			<Layer>
@@ -18,7 +18,7 @@
 					</Size>
 					<Anchors>
 						<Anchor point="TOP">
-							<Offset x="-1" y="-3" />
+							<Offset x="7" />
 						</Anchor>
 					</Anchors>
 				</Texture>
@@ -35,7 +35,7 @@
 						<Anchor point="TOPLEFT" x="28" y="-74" />
 					</Anchors>
 				</FontString>
-				<FontString inherits="GameFontNormalRight" text="Default Instance Type">
+				<FontString name="lblInstanceType" inherits="GameFontNormalRight" text="Default Instance Type">
 					<Size x="134" y="20" />
 					<Anchors>
 						<Anchor point="TOPLEFT" x="28" y="-101" />
@@ -50,7 +50,13 @@
 				<FontString name="lblInfo" inherits="GameFontNormalSmall" text="All options are bound to the Character">
 					<Size x="190" y="20" />
 					<Anchors>
-						<Anchor point="TOPLEFT" x="44" y="-170" />
+						<Anchor point="TOPLEFT" x="66" y="-214" />
+					</Anchors>
+				</FontString>
+				<FontString name="lblBroadcast" inherits="GameFontNormal" text="I want to broadcast my lockouts to my group">
+					<Size x="266" y="20" />
+					<Anchors>
+						<Anchor point="TOPLEFT" x="90" y="-176" />
 					</Anchors>
 				</FontString>
 			</Layer>
@@ -90,12 +96,16 @@
 					<Anchor point="TOPLEFT" x="169" y="-115" />
 				</Anchors>
 			</EditBox>
+			<CheckButton name="cbBroadcast" inherits="UICheckButtonTemplate" text="CheckButton1" checked="true">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="52" y="-170" />
+				</Anchors>
+			</CheckButton>
 		</Frames>
 		<Scripts>
 			<OnShow>
 				 LOP.configFrame_OnShow();
 			</OnShow>
 		</Scripts>
-	
-</Frame>
+	</Frame>
 </Ui>

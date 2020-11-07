@@ -15,10 +15,11 @@
 
 -- This file is loaded from "MyInstanceLocks.toc"
 function LOP.configFrame_OnShow()
-	command, instanceType, addonType = LOP.getDefaultArguments();
+	command, instanceType, addonType, broadcast = LOP.getDefaultArguments();
 	editCommand:SetText(command);
 	editInstanceType:SetText(instanceType);
 	editAddOn:SetText(addonType);
+	cbBroadcast:SetChecked(lopWantsToBroadcast);
 end
 
 function LOP.configFrameOnSave()
@@ -27,5 +28,11 @@ function LOP.configFrameOnSave()
 		string.lower(editInstanceType:GetText()),
 		string.lower(editAddOn:GetText())
 	);
+	local wantsToBc = cbBroadcast:GetChecked();
+	if (wantsToBc == 1 or wantsToBc == true) then
+		lopWantsToBroadcast = true
+	else
+		lopWantsToBroadcast = false
+	end
 	lopOptionsFrame:Hide();
 end

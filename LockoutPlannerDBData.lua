@@ -16,6 +16,9 @@
 -- This file is loaded from "LockoutPlanner.toc
 local L = MyLocalizationTable;
 
+-- Increase this on every change to rebuild stuff
+LOP.DB.revision = 1
+
 --Will be filled out dynamically
 LOP.DB.IDData = {}
 
@@ -471,3 +474,63 @@ LOP.DB.NameData[2070] = L["Battle of Dazar'alor"]
 LOP.DB.NameData[2096] = L["Crucible of Storms"]
 LOP.DB.NameData[2164] = L["The Eternal Palace"]
 LOP.DB.NameData[2217] = L["Ny’alotha "]
+
+
+LOP.DB.WB.revision = 1
+
+LOP.DB.WB.NameData = {}
+LOP.DB.WB.NameData[109943] = L["Ana-Mouz"]
+LOP.DB.WB.NameData[109331] = L["Calamir"]
+LOP.DB.WB.NameData[110378] = L["Drugon the Frostblood"]
+LOP.DB.WB.NameData[99929] = L["Flotsam"]
+LOP.DB.WB.NameData[108879] = L["Humongris"]
+LOP.DB.WB.NameData[108829] = L["Levantus"]
+LOP.DB.WB.NameData[110321] = L["Na'zak the Fiend"]
+LOP.DB.WB.NameData[107544] = L["Nithogg"]
+LOP.DB.WB.NameData[108678] = L["Shar'thos"]
+LOP.DB.WB.NameData[42269] = L["The Soultakers"]
+LOP.DB.WB.NameData[112350] = L["Withered J'im"]
+LOP.DB.WB.NameData[140252] = L["Hailstone Construct"]
+LOP.DB.WB.NameData[136385] = L["Azurethos"]
+LOP.DB.WB.NameData[140163] = L["Warbringer Yenajz"]
+LOP.DB.WB.NameData[132701] = L["T'zane"]
+LOP.DB.WB.NameData[132253] = L["Ji'arak"]
+LOP.DB.WB.NameData[138794] = L["Dunegorger Kraulok"]
+LOP.DB.WB.NameData[137374] = L["The Lion's Roar"]
+LOP.DB.WB.NameData[138122] = L["Doom's Howl"]
+LOP.DB.WB.NameData[144946] = L["Ivus the Forest Lord"]
+LOP.DB.WB.NameData[148295] = L["Ivus the Decayed"]
+LOP.DB.WB.NameData[60491] = L["Sha of Anger"]
+LOP.DB.WB.NameData[62346] = L["Galleon"]
+LOP.DB.WB.NameData[69099] = L["Nalak"]
+LOP.DB.WB.NameData[69161] = L["Oondasta"]
+LOP.DB.WB.NameData[83746] = L["Rukhmar"]
+
+
+LOP.DB.WB.AddonData = {}
+LOP.DB.WB.AddonData[109943] = L["legion"]
+LOP.DB.WB.AddonData[109331] = L["legion"]
+LOP.DB.WB.AddonData[110378] = L["legion"]
+LOP.DB.WB.AddonData[99929] = L["legion"]
+LOP.DB.WB.AddonData[108879] = L["legion"]
+LOP.DB.WB.AddonData[108829] = L["legion"]
+LOP.DB.WB.AddonData[110321] = L["legion"]
+LOP.DB.WB.AddonData[107544] = L["legion"]
+LOP.DB.WB.AddonData[108678] = L["legion"]
+LOP.DB.WB.AddonData[42269] = L["legion"]
+LOP.DB.WB.AddonData[112350] = L["legion"]
+LOP.DB.WB.AddonData[140252] = L["bfa"]
+LOP.DB.WB.AddonData[136385] = L["bfa"]
+LOP.DB.WB.AddonData[140163] = L["bfa"]
+LOP.DB.WB.AddonData[132701] = L["bfa"]
+LOP.DB.WB.AddonData[132253] = L["bfa"]
+LOP.DB.WB.AddonData[138794] = L["bfa"]
+LOP.DB.WB.AddonData[137374] = L["bfa"]
+LOP.DB.WB.AddonData[138122] = L["bfa"]
+LOP.DB.WB.AddonData[144946] = L["bfa"]
+LOP.DB.WB.AddonData[148295] = L["bfa"]
+LOP.DB.WB.AddonData[60491] = L["mop"]
+LOP.DB.WB.AddonData[62346] = L["mop"]
+LOP.DB.WB.AddonData[69099] = L["mop"]
+LOP.DB.WB.AddonData[69161] = L["mop"]
+LOP.DB.WB.AddonData[83746] = L["wod"]

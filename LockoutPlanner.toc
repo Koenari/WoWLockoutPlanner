@@ -4,8 +4,8 @@
 ## Author: Koenari
 ## X-Curse-Project-ID: 396692
 ## X-Min-Interface: 80000
-## SavedVariablesPerCharacter: lopPlannedLockouts,lopDefaultCommand, lopDefaultInstanceType, lopDefaultAddon
-
+## SavedVariablesPerCharacter: lopPlannedLockouts,lopPlannedBossLockouts,lopDefaultCommand, lopDefaultInstanceType, lopDefaultAddon, lopWantsToBroadcast
+## SavedVariables: lopSavedVars, lopDBIDData, lopDBWbIDData
 
 localization.core.lua
 locales\deDE.lua
