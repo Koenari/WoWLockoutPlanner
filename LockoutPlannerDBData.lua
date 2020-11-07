@@ -173,6 +173,16 @@ LOP.DB.AddonData[2070] = "bfa"
 LOP.DB.AddonData[2096] = "bfa"
 LOP.DB.AddonData[2164] = "bfa"
 LOP.DB.AddonData[2217] = "bfa"
+LOP.DB.AddonData[2284] = "sl"
+LOP.DB.AddonData[2285] = "sl"
+LOP.DB.AddonData[2286] = "sl"
+LOP.DB.AddonData[2287] = "sl"
+LOP.DB.AddonData[2289] = "sl"
+LOP.DB.AddonData[2290] = "sl"
+LOP.DB.AddonData[2291] = "sl"
+LOP.DB.AddonData[2293] = "sl"
+LOP.DB.AddonData[2296] = "sl"
+
 
 
 LOP.DB.TypeData = {}
@@ -324,6 +334,15 @@ LOP.DB.TypeData[2070] = "raid"
 LOP.DB.TypeData[2096] = "raid"
 LOP.DB.TypeData[2164] = "raid"
 LOP.DB.TypeData[2217] = "raid"
+LOP.DB.TypeData[2284] = "dugeon"
+LOP.DB.TypeData[2285] = "dugeon"
+LOP.DB.TypeData[2286] = "dugeon"
+LOP.DB.TypeData[2287] = "dugeon"
+LOP.DB.TypeData[2289] = "dugeon"
+LOP.DB.TypeData[2290] = "dugeon"
+LOP.DB.TypeData[2291] = "dugeon"
+LOP.DB.TypeData[2293] = "dugeon"
+LOP.DB.TypeData[2296] = "raid"
 
 LOP.DB.NameData = {}
 LOP.DB.NameData[0] = "unknown"
@@ -474,6 +493,16 @@ LOP.DB.NameData[2070] = L["Battle of Dazar'alor"]
 LOP.DB.NameData[2096] = L["Crucible of Storms"]
 LOP.DB.NameData[2164] = L["The Eternal Palace"]
 LOP.DB.NameData[2217] = L["Ny’alotha "]
+LOP.DB.NameData[2284] = L["Sanguine Depths"]
+LOP.DB.NameData[2285] = L["Spires of Ascension"]
+LOP.DB.NameData[2286] = L["The Necrotic Wake"]
+LOP.DB.NameData[2287] = L["Halls of Atonement"]
+LOP.DB.NameData[2289] = L["Plaguefall"]
+LOP.DB.NameData[2290] = L["Mists of Tirna Scithe"]
+LOP.DB.NameData[2291] = L["De Other Side"]
+LOP.DB.NameData[2293] = L["Theater of Pain"]
+LOP.DB.NameData[2296] = L["Castle Nathria"]
+
 
 
 LOP.DB.WB.revision = 1
