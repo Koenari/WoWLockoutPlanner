@@ -62,7 +62,7 @@ function LOP.getPrintableAddonName(shortName)
     elseif  shortName == "legion"	then return "Legion"
 	elseif	shortName == "sl"		then return "Shadowlands"
     end
-    return "Unknown AddOn: " .. shortName
+    return L["Unknown AddOn"] .. ": " .. shortName
 end
 
 function LOP.getPrintableInstanceType(instanceType)
@@ -206,7 +206,7 @@ function LOP.PrintSavedInstances(wantedType, wantedAddon)
         for instanceIdx = 1, instances do
             name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(instanceIdx);
             if locked == true and LOP.isInstanceType(wantedType, isRaid) and LOP.DB.isPArtOfAddOn(LOP.DB.getID(name), wantedAddon) then
-                LOP.printInstance(name, difficultyName, encounterProgress, numEncounters, GetSavedInstanceChatLink(instanceIdx)); 
+                LOP.printInstance(GetSavedInstanceChatLink(instanceIdx), difficultyName, encounterProgress, numEncounters); 
             end
         end
     end
@@ -231,8 +231,8 @@ end
 function LOP.showOptionsDialog()
     lopOptionsFrame:Show();
 end
-function LOP.printInstance(name,difficulty, encProgress, maxEnc, link)
-    LOP.printMessage("%s (%s): %s / %s - %s", name, difficultyName, encounterProgress, maxEnc, link);
+function LOP.printInstance(name,difficulty, encProgress, maxEnc)
+    LOP.printMessage("%s (%s): %s / %s", name, difficultyName, encounterProgress, maxEnc);
 end
 function LOP.printWorldBoss(name, days, hours, minutes)
 	LOP.printMessage("%s - %d %02d:%02d ", name, days, hours, minutes)
@@ -259,11 +259,12 @@ function LOP.printPlannedInstances(wantedType, wantedAddon)
 							color = "|c00eeee55";
 						end
 				
-						printf("%s%s (%s - %s) Done: %s [%s/%s] |r",
+						printf("%s%s (%s - %s) %s: %s [%s/%s] |r",
 							color,
-							LOP.DB.getName(v),
+							GetSavedInstanceChatLink(savedInstances[v]),
 							LOP.getPrintableAddonName(LOP.DB.getAddon(v)), 
 							LOP.getPrintableInstanceType(LOP.DB.getType(v)),
+							L["Done"],
 							difficultyName,
 							encounterProgress,
 							numEncounters
@@ -292,17 +293,18 @@ function LOP.printPlannedInstances(wantedType, wantedAddon)
 				if savedBosses[v] ~= nil then
 					name, worldBossID, reset = GetSavedWorldBossInfo(savedBosses[v]);
 					if reset > 0 then
-						printf("%s%s (%s - %s) Done |r",
+						printf("%s%s (%s - %s) %s |r",
 							"|c0055ee55",
 							LOP.DB.WB.getName(v),
 							LOP.getPrintableAddonName(LOP.DB.WB.getAddon(v)), 
-							LOP.getPrintableInstanceType(LOP.DB.WB.getType(v))
+							LOP.getPrintableInstanceType(LOP.DB.WB.getType(v)),
+							L["Done"]
 							)
 					else
 						printf("|c00ee5555%s (%s - %s)",LOP.DB.WB.getName(v), LOP.getPrintableAddonName(LOP.DB.WB.getAddon(v)), LOP.getPrintableInstanceType("wb"))
 					end
 				else 
-					printf("|c00ee5555%s no entry (%s - %s)",LOP.DB.WB.getName(v), LOP.getPrintableAddonName(LOP.DB.WB.getAddon(v)), LOP.getPrintableInstanceType("wb"))
+					printf("|c00ee5555%s (%s - %s)",LOP.DB.WB.getName(v), LOP.getPrintableAddonName(LOP.DB.WB.getAddon(v)), LOP.getPrintableInstanceType("wb"))
 				end
 			end
 		end
@@ -313,12 +315,12 @@ function LOP.addPlannnedInstance(name)
 	local bossID = LOP.DB.WB.getID(name)
 	if(instanceId > 0) then
 		lopPlannedLockouts[instanceId] = instanceId
-		printf(L["|c0055ee55<LOP> %s has been added to your planned instances"], name)
+		printf(L["%s<LOP> %s has been added to your planned instances"],"|c0055ee55", name)
 	elseif bossID > 0 then
 		lopPlannedBossLockouts[bossID] = bossID
-		printf(L["|c0055ee55<LOP> %s has been added to your planned world bosses"], name)
+		printf(L["%s<LOP> %s has been added to your planned world bosses"], "|c0055ee55", name)
 	else
-		printf(L["|c00ee5555<LOP> %s is not a valid instance or world boss name"], name)
+		printf(L["%s<LOP> %s is not a valid instance or world boss name"],"|c00ee5555", name)
 	end
 end
 function LOP.deletePlannnedInstance(name)
@@ -326,25 +328,26 @@ function LOP.deletePlannnedInstance(name)
 	local bossID = LOP.DB.WB.getID(name)
 	if(instanceId > 0) then
 		lopPlannedLockouts[instanceId] = nil
-		printf(L["|c0055ee55<LOP> %s has been removed from your planned instances"], name)
+		printf(L["%s<LOP> %s has been removed from your planned instances"],"|c0055ee55", name)
 	elseif bossID > 0 then
 		lopPlannedBossLockouts[bossID] = nil
-		printf(L["|c0055ee55<LOP> %s has been removed from your planned world bosses"], name)
+		printf(L["%s<LOP> %s has been removed from your planned world bosses"],"|c0055ee55", name)
 	else
-		print(L["|c00ee5555<LOP> %s is not a valid instance or world boss name"], name)
+		print(L["%s<LOP> %s is not a valid instance or world boss name"],"|c00ee5555", name)
 	end
 end
 function LOP.printHelp()
-	print("<LOP> Available Slash commands")
+	printf(L["<LOP> Available commands"])
 	print("<LOP> ------------------------------")
-	print("<LOP> /lo show <instanceType> <addOn>: prints your instance locks with specified type belonging to specified addon")
-	print([[<LOP> available <instanceTypes>: "raid", "dungeon", "wb", "all"]])
-	print([[<LOP> available <addOns>: "all","classic","bc","wotlk","cata","mop","wod","legion","bfa", "sl"]])
-	print("<LOP> /lo planned <instanceType> <addOn>: prints a list of all your planned instance lockouts and shows which are done")
-	print("<LOP> /lo add <instance Name>: adds the instance with given name to the list of planned instances")
-	print("<LOP> /lo remove <instance Name>: removes the instance with given name from the list of planned instances")
-	print("<LOP> /lo help: prints this message")
-	print("<LOP> /lo: executes command specified in options")
+	printf("<LOP> /lo show <instanceType> <addOn>: %s", L["prints your instance locks with specified type belonging to specified addon"])
+	printf([[<LOP> %s <instanceTypes>: "raid", "dungeon", "wb", "all"]], L["available"])
+	printf([[<LOP> %s <addOns>: "all","classic","bc","wotlk","cata","mop","wod","legion","bfa", "sl"]], L["available"])
+	printf("<LOP> /lo planned <instanceType> <addOn>: %s", L["prints a list of all your planned instance lockouts and shows which are done"])
+	printf("<LOP> /lo add <name>: %s", L["adds the instance or world boss with given name to the list of planned lockouts"])
+	printf("<LOP> /lo remove <name>: %s", L["removes the instance or world boss with given name from the list of planned lockouts"])
+	printf("<LOP> /lo help: %s", L["prints this message"])
+	printf("<LOP> /lo: %s", L["executes command specified in options"])
+	print("<LOP> ------------------------------")
 end
 
 
