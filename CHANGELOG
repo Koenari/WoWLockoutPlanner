@@ -1,3 +1,8 @@
+9.0.1-1.2
++ Added German translation (Deutsche Übersetzung hinzugefügt)
+* Chatlinks are used instead of Names
+* Adjustments to output to optimize localization support
+
 9.0.1-1.1
 + Support for World Bosses
 + Option to not broadcast in groups

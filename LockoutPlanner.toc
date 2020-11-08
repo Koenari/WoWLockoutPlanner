@@ -1,6 +1,7 @@
 ## Interface: 90001
 ## Title: LockoutPlanner
-## Version: 9.0.1-1.1
+## Title-deDE: Lockout Planer
+## Version: 9.0.1-1.2
 ## Author: Koenari
 ## X-Curse-Project-ID: 396692
 ## X-Min-Interface: 90001
