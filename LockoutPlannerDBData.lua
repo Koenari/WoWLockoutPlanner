@@ -505,7 +505,7 @@ LOP.DB.NameData[2296] = L["Castle Nathria"]
 
 
 
-LOP.DB.WB.revision = 1
+LOP.DB.WB.revision = 2
 
 LOP.DB.WB.NameData = {}
 LOP.DB.WB.NameData[109943] = L["Ana-Mouz"]
@@ -517,7 +517,6 @@ LOP.DB.WB.NameData[108829] = L["Levantus"]
 LOP.DB.WB.NameData[110321] = L["Na'zak the Fiend"]
 LOP.DB.WB.NameData[107544] = L["Nithogg"]
 LOP.DB.WB.NameData[108678] = L["Shar'thos"]
-LOP.DB.WB.NameData[42269] = L["The Soultakers"]
 LOP.DB.WB.NameData[112350] = L["Withered J'im"]
 LOP.DB.WB.NameData[140252] = L["Hailstone Construct"]
 LOP.DB.WB.NameData[136385] = L["Azurethos"]
