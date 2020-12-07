@@ -146,6 +146,8 @@ function LOP.parseArguments(msg)
             addonType = "wod"
         elseif argv[3] == "legion" or argv[3] == "l" then
             addonType = "legion"
+		elseif argv[3] == "shadowlands" or argv[3] == "sl" then
+            addonType = "sl"
         else
             return "help", instanceType, addonType
         end
