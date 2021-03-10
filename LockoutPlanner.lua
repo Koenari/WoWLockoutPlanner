@@ -213,8 +213,8 @@ function LOP.PrintSavedInstances(wantedType, wantedAddon)
         end
     end
 	numBosses = GetNumSavedWorldBosses()
+	LOP.printMessage("== %s (%s / %s) ==",L["Saved World Bosses"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
 	if numBosses > 0 and (wantedType == "wb" or wantedType == "all") then
-		LOP.printMessage("== %s (%s / %s) ==",L["Saved World Bosses"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
 		for bossIdx = 1, numBosses do
 			name, worldBossID, reset = GetSavedWorldBossInfo(bossIdx)
 			if reset > 0 then
@@ -228,6 +228,8 @@ function LOP.PrintSavedInstances(wantedType, wantedAddon)
 				LOP.printWorldBoss(name, resetDays, resetHour, resetMin)
 			end
 		end
+	else
+		LOP.printMessage(L["No Worldboss locks present"])
 	end
 end
 function LOP.showOptionsDialog()

@@ -40,6 +40,7 @@ L["adds the instance or world boss with given name to the list of planned lockou
 L["removes the instance or world boss with given name from the list of planned lockouts"] = "entfernt die Instanz bzw. den Weltboss mit angegebnem Namen aus der Liste deiner geplanten Lootsperren"
 L["prints this message"] = "Zeigt diese Nachricht"
 L["executes command specified in options"] = "Führt den in den Optionen eingestellten Befehl aus"
+L["No Worldboss locks present"] = "Es gibt keine Lockouts für Weltenbosse"
 --Bosses 
 L["Ana-Mouz"] = "Ana-Mouz"
 L["Calamir"] = "Calamir"
