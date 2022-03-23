@@ -34,7 +34,6 @@ end
 
 function LOP.log(msg)
     table.insert(LOP.internalLog, msg);
-	print(msg);
 end
 
 function LOP.isPartOfAddon(name, addon)

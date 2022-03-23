@@ -1153,5 +1153,7 @@ L["De Other Side (Ardenweald Campaign)"] = "Die Andre Seite (Ardenwaldkampagne)"
 L["World Tree 2"] = "Weltenbaum 2"
 L["Dev Map - Internapalooza"] = "Dev Map - Internapalooza"
 L["Torghast"] = "Torghast"
-
+L["Tazavesh, the Veiled Market"] = "Tazavesh, der Verhüllte Markt"
+L["Sanctum of Domination"] = "Sanktum der Herrschaft"
+L["Sepulcher of the First Ones"] = "Mausoleum der Ersten"
 end

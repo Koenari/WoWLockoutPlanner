@@ -17,7 +17,7 @@
 local L = MyLocalizationTable;
 
 -- Increase this on every change to rebuild stuff
-LOP.DB.revision = 1
+LOP.DB.revision = 2
 
 --Will be filled out dynamically
 LOP.DB.IDData = {}
@@ -182,6 +182,10 @@ LOP.DB.AddonData[2290] = "sl"
 LOP.DB.AddonData[2291] = "sl"
 LOP.DB.AddonData[2293] = "sl"
 LOP.DB.AddonData[2296] = "sl"
+LOP.DB.AddonData[2441] = "sl"
+LOP.DB.AddonData[2450] = "sl"
+LOP.DB.AddonData[2481] = "sl"
+
 
 
 
@@ -343,6 +347,9 @@ LOP.DB.TypeData[2290] = "dugeon"
 LOP.DB.TypeData[2291] = "dugeon"
 LOP.DB.TypeData[2293] = "dugeon"
 LOP.DB.TypeData[2296] = "raid"
+LOP.DB.TypeData[2441] = "dungeon"
+LOP.DB.TypeData[2450] = "raid"
+LOP.DB.TypeData[2481] = "raid"
 
 LOP.DB.NameData = {}
 LOP.DB.NameData[0] = "unknown"
@@ -502,6 +509,9 @@ LOP.DB.NameData[2290] = L["Mists of Tirna Scithe"]
 LOP.DB.NameData[2291] = L["De Other Side"]
 LOP.DB.NameData[2293] = L["Theater of Pain"]
 LOP.DB.NameData[2296] = L["Castle Nathria"]
+LOP.DB.NameData[2441] = L["Tazavesh, the Veiled Market"]
+LOP.DB.NameData[2450] = L["Sanctum of Domination"]
+LOP.DB.NameData[2481] = L["Sepulcher of the First Ones"]
 
 
 
