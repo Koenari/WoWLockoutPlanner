@@ -101,7 +101,7 @@ function LOP.parseArguments(msg)
             return "add", string.sub(msg,5,-1), addonType
 		elseif  argv[1] == "remove" then
             return "remove", string.sub(msg,8,-1), addonType
-		elseif  argv[1] == "opt" then
+		elseif  argv[1] == "opt"  or argv[1] == "options" then
             return "opt", instanceType, addonType
         elseif  argv[1] == "log" then
             return "log", instanceType, addonType
