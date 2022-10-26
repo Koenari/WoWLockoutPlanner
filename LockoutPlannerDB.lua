@@ -29,15 +29,24 @@ function LOP.DB.isOfType(id, wantedType)
 end
 
 function LOP.DB.getAddon(id)
-	return LOP.DB.AddonData[id]
+	if LOP.DB.AddonData[id] ~= nil then
+		return LOP.DB.AddonData[id]
+	end
+	return "unknown"
 end
 
 function LOP.DB.getType(id)
-	return LOP.DB.TypeData[id]
+	if LOP.DB.TypeData[id] ~= nil then
+		return LOP.DB.TypeData[id]
+	end
+	return "unknown"
 end
 
 function LOP.DB.getName(id)
-	return LOP.DB.NameData[id]
+	if LOP.DB.NameData[id] ~= nil then
+		return LOP.DB.NameData[id]
+	end
+	return "unknown"
 end
 
 function LOP.DB.getID(name)

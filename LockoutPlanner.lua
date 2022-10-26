@@ -70,7 +70,7 @@ function LOP.getPrintableInstanceType(instanceType)
 	elseif	instanceType == "wb"		then return "World Boss"
     elseif  instanceType == "all"       then return "All Types"
     end
-    return L["Unknown Type"] ..": " .. shortName
+    return L["Unknown Type"] ..": " .. instanceType
 end
 
 function LOP.Set(list)
@@ -203,7 +203,6 @@ function LOP.PrintSavedInstances(wantedType, wantedAddon)
     instances = GetNumSavedInstances();
     if instances > 0 and wantedType ~= "wb" then
         LOP.printMessage("== %s (%s / %s) ==",L["Saved Instances"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
-        
         for instanceIdx = 1, instances do
             name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(instanceIdx);
             if locked == true and LOP.isInstanceType(wantedType, isRaid) and LOP.DB.isPArtOfAddOn(LOP.DB.getID(name), wantedAddon) then
@@ -251,7 +250,7 @@ function LOP.printPlannedInstances(wantedType, wantedAddon)
 	end
 	if wantedType ~= "wb" then
 		printf("== %s (%s / %s) ==",L["Planned Instances"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
-		for v in pairs(lopPlannedLockouts) do
+		for _, v in pairs(lopPlannedLockouts) do
 			if LOP.DB.isPArtOfAddOn(v, wantedAddon) and LOP.DB.isOfType(v,wantedType) then
 				if savedInstances[v] ~= nil then
 					name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(savedInstances[v]);
