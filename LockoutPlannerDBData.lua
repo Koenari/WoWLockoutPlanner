@@ -17,7 +17,7 @@
 local L = MyLocalizationTable;
 
 -- Increase this on every change to rebuild stuff
-LOP.DB.revision = 2
+LOP.DB.revision = 3
 
 --Will be filled out dynamically
 LOP.DB.IDData = {}
@@ -185,8 +185,16 @@ LOP.DB.AddonData[2296] = "sl"
 LOP.DB.AddonData[2441] = "sl"
 LOP.DB.AddonData[2450] = "sl"
 LOP.DB.AddonData[2481] = "sl"
-
-
+LOP.DB.AddonData[2526] = "df"
+LOP.DB.AddonData[2520] = "df"
+LOP.DB.AddonData[2527] = "df"
+LOP.DB.AddonData[2519] = "df"
+LOP.DB.AddonData[2521] = "df"
+LOP.DB.AddonData[2515] = "df"
+LOP.DB.AddonData[2516] = "df"
+LOP.DB.AddonData[2451] = "df"
+LOP.DB.AddonData[2574] = "df"
+LOP.DB.AddonData[2522] = "df"
 
 
 LOP.DB.TypeData = {}
@@ -350,6 +358,16 @@ LOP.DB.TypeData[2296] = "raid"
 LOP.DB.TypeData[2441] = "dungeon"
 LOP.DB.TypeData[2450] = "raid"
 LOP.DB.TypeData[2481] = "raid"
+LOP.DB.TypeData[2526] = "dungeon"
+LOP.DB.TypeData[2520] = "dungeon"
+LOP.DB.TypeData[2527] = "dungeon"
+LOP.DB.TypeData[2519] = "dungeon"
+LOP.DB.TypeData[2521] = "dungeon"
+LOP.DB.TypeData[2515] = "dungeon"
+LOP.DB.TypeData[2516] = "dungeon"
+LOP.DB.TypeData[2451] = "dungeon"
+LOP.DB.TypeData[2574] = "raid"
+LOP.DB.TypeData[2522] = "raid"
 
 LOP.DB.NameData = {}
 LOP.DB.NameData[0] = "unknown"
@@ -512,6 +530,16 @@ LOP.DB.NameData[2296] = L["Castle Nathria"]
 LOP.DB.NameData[2441] = L["Tazavesh, the Veiled Market"]
 LOP.DB.NameData[2450] = L["Sanctum of Domination"]
 LOP.DB.NameData[2481] = L["Sepulcher of the First Ones"]
+LOP.DB.NameData[2526] = L["Algeth'ar Academy"]
+LOP.DB.NameData[2520] = L["Brackenhide Hollows"]
+LOP.DB.NameData[2527] = L["Halls of Infusion"]
+LOP.DB.NameData[2519] = L["Neltharus"]
+LOP.DB.NameData[2521] = L["Ruby Life Pools"]
+LOP.DB.NameData[2515] = L["The Azure Vault"]
+LOP.DB.NameData[2516] = L["The Nokhud Offensive"]
+LOP.DB.NameData[2451] = L["Uldaman: Legacy of Tyr"]
+LOP.DB.NameData[2574] = L["Dragon Isles"]
+LOP.DB.NameData[2522] = L["Vault of the Incarnates"]
 
 
 

@@ -60,6 +60,7 @@ function LOP.getPrintableAddonName(shortName)
     elseif  shortName == "wod"		then return "Warlords of Draenor"
     elseif  shortName == "legion"	then return "Legion"
 	elseif	shortName == "sl"		then return "Shadowlands"
+	elseif	shortName == "df"		then return "Dragonflight"
     end
     return L["Unknown AddOn"] .. ": " .. shortName
 end
@@ -127,7 +128,9 @@ function LOP.parseArguments(msg)
     
     --parse addon type
     if argv[3] ~= nil then
-        if argv[3] == "bfa" or argv[3] == "current" or argv[3] == "latest" then
+		if argv[3] == "df" or argv[3] == "current" or argv[3] == "latest" then	
+			addonType = "df"
+        elseif argv[3] == "bfa" then
             addonType = "bfa"
         elseif argv[3] == "all" or argv[3] == "a" or argv[3] == "any" then
             addonType = "all"
@@ -210,24 +213,26 @@ function LOP.PrintSavedInstances(wantedType, wantedAddon)
             end
         end
     end
-	numBosses = GetNumSavedWorldBosses()
-	LOP.printMessage("== %s (%s / %s) ==",L["Saved World Bosses"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
-	if numBosses > 0 and (wantedType == "wb" or wantedType == "all") then
-		for bossIdx = 1, numBosses do
-			name, worldBossID, reset = GetSavedWorldBossInfo(bossIdx)
-			if reset > 0 then
-				resetSec = reset % 60
-				reset = ((reset - resetSec)/60)
-				resetMin = reset % 60
-				reset = ((reset - resetMin)/60)
-				resetHour = reset % 24
-				reset = ((reset - resetHour)/24)
-				resetDays = reset
-				LOP.printWorldBoss(name, resetDays, resetHour, resetMin)
+	if (wantedType == "wb" or wantedType == "all") then
+		numBosses = GetNumSavedWorldBosses()
+		LOP.printMessage("== %s (%s / %s) ==",L["Saved World Bosses"],LOP.getPrintableInstanceType(wantedType),LOP.getPrintableAddonName(wantedAddon));
+		if numBosses > 0 then
+			for bossIdx = 1, numBosses do
+				name, worldBossID, reset = GetSavedWorldBossInfo(bossIdx)
+				if reset > 0 then
+					resetSec = reset % 60
+					reset = ((reset - resetSec)/60)
+					resetMin = reset % 60
+					reset = ((reset - resetMin)/60)
+					resetHour = reset % 24
+					reset = ((reset - resetHour)/24)
+					resetDays = reset
+					LOP.printWorldBoss(name, resetDays, resetHour, resetMin)
+				end
 			end
+		else
+			LOP.printMessage(L["No Worldboss locks present"])
 		end
-	else
-		LOP.printMessage(L["No Worldboss locks present"])
 	end
 end
 function LOP.showOptionsDialog()
@@ -386,7 +391,7 @@ function LOP.initDB()
 	LOP.DB.WB.IDData = lopDBWbIDData
 	if lopSavedVars["DBRev"] < LOP.DB.revision or lopSavedVars["DBLocale"] ~= GetLocale() then
 		LOP.DB.IDData = {}
-		for i=0,2500 do
+		for i=0,5000 do
 			v = LOP.DB.NameData[i]
 			if v ~= nil then
 				LOP.DB.IDData[v] = i
