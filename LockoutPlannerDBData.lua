@@ -17,7 +17,7 @@
 local L = MyLocalizationTable;
 
 -- Increase this on every change to rebuild stuff
-LOP.DB.revision = 3
+LOP.DB.revision = 4
 
 --Will be filled out dynamically
 LOP.DB.IDData = {}
@@ -531,7 +531,7 @@ LOP.DB.NameData[2441] = L["Tazavesh, the Veiled Market"]
 LOP.DB.NameData[2450] = L["Sanctum of Domination"]
 LOP.DB.NameData[2481] = L["Sepulcher of the First Ones"]
 LOP.DB.NameData[2526] = L["Algeth'ar Academy"]
-LOP.DB.NameData[2520] = L["Brackenhide Hollows"]
+LOP.DB.NameData[2520] = L["Brackenhide Hollow"]
 LOP.DB.NameData[2527] = L["Halls of Infusion"]
 LOP.DB.NameData[2519] = L["Neltharus"]
 LOP.DB.NameData[2521] = L["Ruby Life Pools"]
