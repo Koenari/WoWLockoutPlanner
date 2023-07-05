@@ -195,7 +195,7 @@ LOP.DB.AddonData[2516] = "df"
 LOP.DB.AddonData[2451] = "df"
 LOP.DB.AddonData[2574] = "df"
 LOP.DB.AddonData[2522] = "df"
-
+LOP.DB.AddonData[2569] = "df"
 
 LOP.DB.TypeData = {}
 LOP.DB.TypeData[0] = "unknown"
@@ -368,6 +368,7 @@ LOP.DB.TypeData[2516] = "dungeon"
 LOP.DB.TypeData[2451] = "dungeon"
 LOP.DB.TypeData[2574] = "raid"
 LOP.DB.TypeData[2522] = "raid"
+LOP.DB.TypeData[2269] = "raid"
 
 LOP.DB.NameData = {}
 LOP.DB.NameData[0] = "unknown"
@@ -540,7 +541,7 @@ LOP.DB.NameData[2516] = L["The Nokhud Offensive"]
 LOP.DB.NameData[2451] = L["Uldaman: Legacy of Tyr"]
 LOP.DB.NameData[2574] = L["Dragon Isles"]
 LOP.DB.NameData[2522] = L["Vault of the Incarnates"]
-
+LOP.DB.NameData[2569] = L["Aberrus, the Shadowed Crucible"]
 
 
 LOP.DB.WB.revision = 2
