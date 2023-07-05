@@ -368,7 +368,7 @@ LOP.DB.TypeData[2516] = "dungeon"
 LOP.DB.TypeData[2451] = "dungeon"
 LOP.DB.TypeData[2574] = "raid"
 LOP.DB.TypeData[2522] = "raid"
-LOP.DB.TypeData[2269] = "raid"
+LOP.DB.TypeData[2569] = "raid"
 
 LOP.DB.NameData = {}
 LOP.DB.NameData[0] = "unknown"
