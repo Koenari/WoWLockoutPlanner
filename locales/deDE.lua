@@ -1,4 +1,4 @@
---  Lockout Planner AddOn for WoW-Retail Copyright (C) 2020  Patrick Hahn (Koenari)
+--  Lockout Planner AddOn for WoW-Retail Copyright (C) 2024 Koenari
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 -- This file is loaded from "LockoutPlanner.toc"
 local L = MyLocalizationTable;
 if GetLocale() == "deDE" then
--- lockutplanner Strings
+-- lockoutplanner Strings
 L["Unknown Type"] = "Unbekannter Instanztyp"
 L["Unknown AddOn"] = "Unbekanntes Addon"
 L["LOP: %s is not a valid command. Option is ignored"] = "LOP: %s ist kein korrekter Befehl. Die option wird ignoriert."
@@ -1167,4 +1167,5 @@ L["Uldaman: Legacy of Tyr"] = "Uldaman"
 L["Dragon Isles"] = "Dracheninseln"
 L["Vault of the Incarnates"] = "Gewölbe der Inkarnationen"
 L["Aberrus, the Shadowed Crucible"] = "Aberrus, Schmelztiegel der Schatten"
+L["Dawn of the Infinite"] = "DÄmmerung des Ewigen"
 end

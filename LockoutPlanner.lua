@@ -1,4 +1,4 @@
---  Lockout Planner AddOn for WoW-Retail Copyright (C) 2020  Patrick Hahn (Koenari)
+--  Lockout Planner AddOn for WoW-Retail Copyright (C) 2024 Koenari
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
@@ -348,7 +348,7 @@ function LOP.printHelp()
 	print("<LOP> ------------------------------")
 	printf("<LOP> /lo show <instanceType> <addOn>: %s", L["prints your instance locks with specified type belonging to specified addon"])
 	printf([[<LOP> %s <instanceTypes>: "raid", "dungeon", "wb", "all"]], L["available"])
-	printf([[<LOP> %s <addOns>: "all","classic","bc","wotlk","cata","mop","wod","legion","bfa", "sl"]], L["available"])
+	printf([[<LOP> %s <addOns>: "all","classic","bc","wotlk","cata","mop","wod","legion","bfa", "sl","df"]], L["available"])
 	printf("<LOP> /lo planned <instanceType> <addOn>: %s", L["prints a list of all your planned instance lockouts and shows which are done"])
 	printf("<LOP> /lo add <name>: %s", L["adds the instance or world boss with given name to the list of planned lockouts"])
 	printf("<LOP> /lo remove <name>: %s", L["removes the instance or world boss with given name from the list of planned lockouts"])

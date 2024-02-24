@@ -1,4 +1,4 @@
---  Lockout Planner AddOn for WoW-Retail Copyright (C) 2020  Patrick Hahn (Koenari)
+--  Lockout Planner AddOn for WoW-Retail Copyright (C) 2024  Koenari
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by

@@ -1,4 +1,4 @@
---  Lockout Planner AddOn for WoW-Retail Copyright (C) 2020  Patrick Hahn (Koenari)
+--  Lockout Planner AddOn for WoW-Retail Copyright (C) 2024  Koenari
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 local L = MyLocalizationTable;
 
 -- Increase this on every change to rebuild stuff
-LOP.DB.revision = 4
+LOP.DB.revision = 5
 
 --Will be filled out dynamically
 LOP.DB.IDData = {}
@@ -542,7 +542,7 @@ LOP.DB.NameData[2451] = L["Uldaman: Legacy of Tyr"]
 LOP.DB.NameData[2574] = L["Dragon Isles"]
 LOP.DB.NameData[2522] = L["Vault of the Incarnates"]
 LOP.DB.NameData[2569] = L["Aberrus, the Shadowed Crucible"]
-
+LOP.DB.NameData[2579] = L["Dawn of the Infinite"]
 
 LOP.DB.WB.revision = 2
 
