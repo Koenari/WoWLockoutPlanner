@@ -1,6 +1,6 @@
-## Interface: 100205
+## Interface: 100206
 ## Title: Lockout Planner
-## Version: 10.2.5-1.0
+## Version: 10.2.6-1.0
 ## Author: Koenari
 ## SavedVariables: lopSavedVars, lopDBIDData, lopDBWbIDData
 ## SavedVariablesPerCharacter: lopPlannedLockouts,lopPlannedBossLockouts,lopDefaultCommand, lopDefaultInstanceType, lopDefaultAddon, lopWantsToBroadcast
