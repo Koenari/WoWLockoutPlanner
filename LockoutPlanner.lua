@@ -61,6 +61,7 @@ function LOP.getPrintableAddonName(shortName)
     elseif  shortName == "legion"	then return "Legion"
 	elseif	shortName == "sl"		then return "Shadowlands"
 	elseif	shortName == "df"		then return "Dragonflight"
+	elseif	shortName == "tww"		then return "The War Within"
     end
     return L["Unknown AddOn"] .. ": " .. shortName
 end
@@ -128,8 +129,10 @@ function LOP.parseArguments(msg)
     
     --parse addon type
     if argv[3] ~= nil then
-		if argv[3] == "df" or argv[3] == "current" or argv[3] == "latest" then	
-			addonType = "df"
+		if argv[3] == "tww" or argv[3] == "current" or argv[3] == "latest" then	
+			addonType = "tww"
+		elseif argv[3] == "df" then
+            addonType = "df"
         elseif argv[3] == "bfa" then
             addonType = "bfa"
         elseif argv[3] == "all" or argv[3] == "a" or argv[3] == "any" then
@@ -348,7 +351,7 @@ function LOP.printHelp()
 	print("<LOP> ------------------------------")
 	printf("<LOP> /lo show <instanceType> <addOn>: %s", L["prints your instance locks with specified type belonging to specified addon"])
 	printf([[<LOP> %s <instanceTypes>: "raid", "dungeon", "wb", "all"]], L["available"])
-	printf([[<LOP> %s <addOns>: "all","classic","bc","wotlk","cata","mop","wod","legion","bfa", "sl","df"]], L["available"])
+	printf([[<LOP> %s <addOns>: "all","classic","bc","wotlk","cata","mop","wod","legion","bfa", "sl","df","tww"]], L["available"])
 	printf("<LOP> /lo planned <instanceType> <addOn>: %s", L["prints a list of all your planned instance lockouts and shows which are done"])
 	printf("<LOP> /lo add <name>: %s", L["adds the instance or world boss with given name to the list of planned lockouts"])
 	printf("<LOP> /lo remove <name>: %s", L["removes the instance or world boss with given name from the list of planned lockouts"])
