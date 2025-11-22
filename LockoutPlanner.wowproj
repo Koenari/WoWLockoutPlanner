@@ -14,6 +14,18 @@
     <Content Include=".gitignore" />
     <Content Include=".pkgmeta" />
     <Content Include="CHANGELOG" />
+    <Content Include="LockoutPlannerArgsConfig.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="locales\itIT.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="locales\frFR.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="locales\esES.lua">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="localization.core.lua">
       <SubType>Code</SubType>
     </Content>

@@ -1,3 +1,11 @@
+12.0.0-0.1
++ Now additionally works in the following languages (but is not translated)
+  + FranÃ§ais
+  + Italiano
+  + EspaÃ±ol
++ Added 11.1 and 11.2 instances to planning
++ Added 12.0 instances to planning
+* a few optical changes to the options
 11.0.2-1.0
 * tested for 11.0.2
 11.0.0-1.1
@@ -31,9 +39,9 @@ Update for 9.2.0
 9.0.2-1.0.1
 Bugfix: Anzeigen von Shadowlands Instanzen funtionierte nicht
 9.0.2-1.0
-Update für 9.0.2
+Update fÃ¼r 9.0.2
 9.0.1-1.2
-+ Added German translation (Deutsche Übersetzung hinzugefügt)
++ Added German translation (Deutsche Ãœbersetzung hinzugefÃ¼gt)
 * Chatlinks are used instead of Names
 * Adjustments to output to optimize localization support
 

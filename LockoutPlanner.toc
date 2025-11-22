@@ -1,6 +1,6 @@
-## Interface: 110002
+## Interface: 120000
 ## Title: Lockout Planner
-## Version: 11.0.2-1.0
+## Version: 12.0.0-0.1
 ## Author: Koenari
 ## SavedVariables: lopSavedVars, lopDBIDData, lopDBWbIDData
 ## SavedVariablesPerCharacter: lopPlannedLockouts,lopPlannedBossLockouts,lopDefaultCommand, lopDefaultInstanceType, lopDefaultAddon, lopWantsToBroadcast
@@ -10,8 +10,12 @@
 
 localization.core.lua
 locales\deDE.lua
+locales\esES.lua
+locales\itIT.lua
+locales\frFR.lua
 LockoutPlannerDB.lua
 LockoutPlannerDBData.lua
 LockoutPlannerOptions.xml
 LockoutPlannerOptions.lua
+LockoutPlannerArgsConfig.lua
 LockoutPlanner.lua

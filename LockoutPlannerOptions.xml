@@ -1,11 +1,11 @@
-<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd" xmlns="http://www.blizzard.com/wow/ui/">
+<Ui xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd" xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="LockoutPlannerOptions.lua" />
 	<Frame name="lopOptionsFrame" inherits="BackdropTemplate" hidden="true" parent="UIParent" toplevel="true" movable="true" frameStrata="DIALOG" enableMouse="true">
 		<Size>
-			<AbsDimension x="403" y="253" />
+			<AbsDimension x="500" y="300" />
 		</Size>
 		<Anchors>
-			<Anchor point="CENTER" x="71" y="14" />
+			<Anchor point="CENTER" />
 		</Anchors>
 		<KeyValues>
 			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
@@ -14,7 +14,7 @@
 			<Layer>
 				<Texture name="texHeader" file="Interface\DialogFrame\UI-DialogBox-Header">
 					<Size>
-						<AbsDimension x="400" y="64" />
+						<AbsDimension x="400" y="72" />
 					</Size>
 					<Anchors>
 						<Anchor point="TOP">
@@ -26,37 +26,37 @@
 			<Layer level="OVERLAY">
 				<FontString name="lblTitle" inherits="GameFontNormal" text="Lockout Planner Options">
 					<Anchors>
-						<Anchor point="TOP" relativeTo="lopOptionsFrame" relativePoint="TOP" x="0" y="-16" />
+						<Anchor y="-16" point="TOP" relativeTo="lopOptionsFrame" relativePoint="TOP" />
 					</Anchors>
 				</FontString>
-				<FontString name="lblCommand" inherits="GameFontNormalRight" text="Default Command">
-					<Size x="134" y="20" />
+				<FontString name="lblCommand" inherits="OptionsFontLarge" text="Default Command" justifyH="RIGHT">
+					<Size x="172" y="40" />
 					<Anchors>
-						<Anchor point="TOPLEFT" x="28" y="-74" />
+						<Anchor x="28" y="-61" point="TOPLEFT" />
 					</Anchors>
 				</FontString>
-				<FontString name="lblInstanceType" inherits="GameFontNormalRight" text="Default Instance Type">
-					<Size x="134" y="20" />
+				<FontString name="lblInstanceType" inherits="OptionsFontLarge" text="Default Instance Type" justifyH="RIGHT">
+					<Size x="172" y="40" />
 					<Anchors>
-						<Anchor point="TOPLEFT" x="28" y="-101" />
+						<Anchor x="28" y="-107" point="TOPLEFT" />
 					</Anchors>
 				</FontString>
-				<FontString name="lblAddon" inherits="GameFontNormalRight" text="Default AddOn">
-					<Size x="134" y="20" />
+				<FontString name="lblAddon" inherits="OptionsFontLarge" text="Default AddOn" justifyH="RIGHT">
+					<Size x="172" y="40" />
 					<Anchors>
-						<Anchor point="TOPLEFT" x="28" y="-128" />
+						<Anchor x="28" y="-153" point="TOPLEFT" />
 					</Anchors>
 				</FontString>
-				<FontString name="lblInfo" inherits="GameFontNormalSmall" text="All options are bound to the Character">
-					<Size x="190" y="20" />
+				<FontString name="lblInfo" inherits="GameFontNormalSmall" text="All options are saved on a by character basis" justifyH="LEFT">
+					<Size x="301" y="20" />
 					<Anchors>
-						<Anchor point="TOPLEFT" x="66" y="-214" />
+						<Anchor x="28" y="-257" point="TOPLEFT" />
 					</Anchors>
 				</FontString>
 				<FontString name="lblBroadcast" inherits="GameFontNormal" text="I want to broadcast my lockouts to my group">
-					<Size x="266" y="20" />
+					<Size x="266" y="32" />
 					<Anchors>
-						<Anchor point="TOPLEFT" x="90" y="-176" />
+						<Anchor x="57" y="-211" point="TOPLEFT" />
 					</Anchors>
 				</FontString>
 			</Layer>
@@ -70,7 +70,7 @@
 			<Button name="btnSave" inherits="UIPanelButtonTemplate" text="Save">
 				<Size x="78" y="24" />
 				<Anchors>
-					<Anchor point="BOTTOMRIGHT" x="-18" y="19" />
+					<Anchor x="-18" y="19" point="BOTTOMRIGHT" />
 				</Anchors>
 				<Scripts>
 					<OnClick>
@@ -78,27 +78,27 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<EditBox name="editCommand" inherits="InputBoxTemplate">
-				<Size x="100" y="32" />
+			<EditBox name="editCommand" inherits="LargeInputBoxTemplate">
+				<Size x="170" y="40" />
 				<Anchors>
-					<Anchor point="TOPLEFT" x="169" y="-61" />
+					<Anchor x="234" y="-61" point="TOPLEFT" />
 				</Anchors>
 			</EditBox>
-			<EditBox name="editInstanceType" inherits="InputBoxTemplate">
-				<Size x="100" y="32" />
+			<EditBox name="editInstanceType" inherits="LargeInputBoxTemplate">
+				<Size x="170" y="40" />
 				<Anchors>
-					<Anchor point="TOPLEFT" x="169" y="-88" />
+					<Anchor x="234" y="-107" point="TOPLEFT" />
 				</Anchors>
 			</EditBox>
-			<EditBox name="editAddOn" inherits="InputBoxTemplate">
-				<Size x="100" y="32" />
+			<EditBox name="editAddOn" inherits="LargeInputBoxTemplate">
+				<Size x="170" y="40" />
 				<Anchors>
-					<Anchor point="TOPLEFT" x="169" y="-115" />
+					<Anchor x="234" y="-153" point="TOPLEFT" />
 				</Anchors>
 			</EditBox>
 			<CheckButton name="cbBroadcast" inherits="UICheckButtonTemplate" text="CheckButton1" checked="true">
 				<Anchors>
-					<Anchor point="TOPLEFT" x="52" y="-170" />
+					<Anchor x="19" y="-211" point="TOPLEFT" />
 				</Anchors>
 			</CheckButton>
 		</Frames>

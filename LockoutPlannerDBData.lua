@@ -1,4 +1,4 @@
---  Lockout Planner AddOn for WoW-Retail Copyright (C) 2024  Koenari
+--  Lockout Planner AddOn for WoW-Retail Copyright (C) 2025  Koenari
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 local L = MyLocalizationTable;
 
 -- Increase this on every change to rebuild stuff
-LOP.DB.revision = 6
+LOP.DB.revision = 7
 
 --Will be filled out dynamically
 LOP.DB.IDData = {}
@@ -205,6 +205,21 @@ LOP.DB.AddonData[2660] = "tww"
 LOP.DB.AddonData[2661] = "tww"
 LOP.DB.AddonData[2662] = "tww"
 LOP.DB.AddonData[2669] = "tww"
+LOP.DB.AddonData[2769] = "tww"
+LOP.DB.AddonData[2773] = "tww"
+LOP.DB.AddonData[2810] = "tww"
+LOP.DB.AddonData[2830] = "tww"
+--Midnight
+LOP.DB.AddonData[2805] = "mn"
+LOP.DB.AddonData[2811] = "mn"
+LOP.DB.AddonData[2813] = "mn"
+LOP.DB.AddonData[2825] = "mn"
+LOP.DB.AddonData[2859] = "mn"
+LOP.DB.AddonData[2874] = "mn"
+LOP.DB.AddonData[2912] = "mn"
+LOP.DB.AddonData[2913] = "mn"
+LOP.DB.AddonData[2915] = "mn"
+LOP.DB.AddonData[2923] = "mn"
 
 LOP.DB.TypeData = {}
 LOP.DB.TypeData[0] = "unknown"
@@ -388,6 +403,21 @@ LOP.DB.TypeData[2660] = "dungeon"
 LOP.DB.TypeData[2661] = "dungeon"
 LOP.DB.TypeData[2662] = "dungeon"
 LOP.DB.TypeData[2669] = "dungeon"
+LOP.DB.TypeData[2769] = "raid"
+LOP.DB.TypeData[2773] = "dungeon"
+LOP.DB.TypeData[2810] = "raid"
+LOP.DB.TypeData[2830] = "dungeon"
+--Midnight
+LOP.DB.TypeData[2805] = "dungeon"
+LOP.DB.TypeData[2811] = "dungeon"
+LOP.DB.TypeData[2813] = "dungeon"
+LOP.DB.TypeData[2825] = "dungeon"
+LOP.DB.TypeData[2859] = "dungeon"
+LOP.DB.TypeData[2874] = "dungeon"
+LOP.DB.TypeData[2912] = "raid"
+LOP.DB.TypeData[2913] = "raid"
+LOP.DB.TypeData[2915] = "dungeon"
+LOP.DB.TypeData[2923] = "dungeon"
 
 LOP.DB.NameData = {}
 LOP.DB.NameData[0] = "unknown"
@@ -572,7 +602,21 @@ LOP.DB.NameData[2660] = L["Ara-Kara, City of Echoes"]
 LOP.DB.NameData[2661] = L["Cinderbrew Meadery"]
 LOP.DB.NameData[2662] = L["The Dawnbreaker"]
 LOP.DB.NameData[2669] = L["City of Threads"]
-
+LOP.DB.NameData[2769] = L["Liberation of Undermine"]
+LOP.DB.NameData[2773] = L["Operation: Floodgate"]
+LOP.DB.NameData[2810] = L["Manaforge Omega"]
+LOP.DB.NameData[2830] = L["Eco-Dome Al'dani"]
+--Midnight
+LOP.DB.NameData[2805] = L["Windrunner Spire"]
+LOP.DB.NameData[2811] = L["Magisters' Terrace"]
+LOP.DB.NameData[2813] = L["Murder Row"]
+LOP.DB.NameData[2825] = L["Den of Nalorakk"]
+LOP.DB.NameData[2859] = L["The Blinding Vale"]
+LOP.DB.NameData[2874] = L["Maisara Caverns"]
+LOP.DB.NameData[2912] = L["The Voidspire"]
+LOP.DB.NameData[2913] = L["March on Quel'Danas"]
+LOP.DB.NameData[2915] = L["Nexus-Point Xenas"]
+LOP.DB.NameData[2923] = L["Voidscar Arena"]
 
 LOP.DB.WB.revision = 2
 

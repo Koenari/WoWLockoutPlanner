@@ -1,4 +1,4 @@
---  Lockout Planner AddOn for WoW-Retail Copyright (C) 2024 Koenari
+--  Lockout Planner AddOn for WoW-Retail Copyright (C) 2025 Koenari
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
@@ -15,9 +15,6 @@
 
 -- This file is loaded from "LockoutPlanner.toc"
 LOP.internalLog = {}
-LOP.allowedCommands = {}
-LOP.allowedInstanceTypes = {}
-LOP.allowedAddOns = {}
 local L = MyLocalizationTable;
 --Helper Functions-------------------------------------------------
 function printf(s,...)
@@ -44,46 +41,39 @@ end
 function LOP.isInstanceType(wantedType, instanceIsRaid)
     if      wantedType == "raid"    then return instanceIsRaid
     elseif  wantedType == "dungeon" then return not instanceIsRaid
-	elseif	wantedType == "boss"	then return 
     end
     return true;
 end
 
 function LOP.getPrintableAddonName(shortName)
-    if      shortName == "bfa"		then return "Battle for Azeroth"
-    elseif  shortName == "all"		then return "All AddOns"
-    elseif  shortName == "classic"  then return "Classic"
-    elseif  shortName == "bc"		then return "Burning Crusade"
-    elseif  shortName == "wotlk"	then return "Wrath of the Lich King"
-    elseif  shortName == "cata"		then return "Cataclysm"
-    elseif  shortName == "mop"		then return "Mists of Pandaria"
-    elseif  shortName == "wod"		then return "Warlords of Draenor"
-    elseif  shortName == "legion"	then return "Legion"
-	elseif	shortName == "sl"		then return "Shadowlands"
-	elseif	shortName == "df"		then return "Dragonflight"
-	elseif	shortName == "tww"		then return "The War Within"
-    end
+	local addon = LOP.knownAddOns[shortName]
+	if addon ~= nil then return addon.name end
     return L["Unknown AddOn"] .. ": " .. shortName
 end
 
-function LOP.getPrintableInstanceType(instanceType)
-    if      instanceType == "raid"      then return "Raids"
-    elseif  instanceType == "dungeon"   then return "Dungeon"
-	elseif	instanceType == "wb"		then return "World Boss"
-    elseif  instanceType == "all"       then return "All Types"
-    end
-    return L["Unknown Type"] ..": " .. instanceType
+function LOP.getPrintableInstanceType(shortName)
+    local instanceType = LOP.knownInstanceTypes[shortName]
+	if instanceType ~= nil then return instanceType.name end
+    return L["Unknown Type"] ..": " .. shortName
 end
 
-function LOP.Set(list)
-	local set = {}
-    for _, l in ipairs(list) do set[l] = true end
-    return set
+function LOP.findKeyForAlternatives(searchTerm, dict)
+	if searchTerm == nil then return false, "" end
+	for key,value in next, dict do
+		local tempCommand = nil
+		if key == searchTerm then return true,key end
+		for _, alt in ipairs(value.alternatives) do
+			if alt == searchTerm then return true,key end
+		end
+		if tempCommand ~= nil then
+			command = tempCommand
+			commandFound = true
+			break
+		end
+	end
+	return false,""
 end
 
-function LOP.isPartOfSet(entry, set)
-	return (set[entry] == true)
-end
 --Command Handling-------------------------------------------------
 function LOP.parseArguments(msg)
     argv = {}
@@ -93,69 +83,31 @@ function LOP.parseArguments(msg)
     command, instanceType, addonType = LOP.getDefaultArguments();
     --parse commands
     if argv[1] ~= nil then
-        if  argv[1] == "help" then
-            return "help", instanceType, addonType
-        elseif  argv[1] == "show" then
-            command = "show"
-		elseif  argv[1] == "planned" then
-            command = "planned"
-		elseif  argv[1] == "add" then
-            return "add", string.sub(msg,5,-1), addonType
-		elseif  argv[1] == "remove" then
-            return "remove", string.sub(msg,8,-1), addonType
-		elseif  argv[1] == "opt"  or argv[1] == "options" then
-            return "opt", instanceType, addonType
-        elseif  argv[1] == "log" then
-            return "log", instanceType, addonType
-        else
-            command = "help"
-        end
+		local found, tempCommand = LOP.findKeyForAlternatives(argv[1], LOP.knownCommands)
+		if found then command = tempCommand else command = "help" end
+		--early returning commands that use different argument structures
+		if command == "help" or command == "log" or command == "opt" then
+			return command, instanceType, addonType
+		elseif command == "add" or command == "remove" then
+			return command, string.sub(msg,string.len(argv[1])+2,-1), addonType
+		end
     end
+
     --parse InstanceType
     if argv[2] ~= nil then
-         
-        if argv[2] == "raid" or argv[2] == "r" or argv[2] == "raids" then
-            instanceType = "raid"
-        elseif argv[2] == "dungeon" or argv[2] == "d" or argv[2] == "mythic" or argv[2] == "m" or argv[2] == "m0" then
-            instanceType = "dungeon"
-		elseif argv[2] == "boss" or argv[2] == "wb" or argv[2] == "worldboss" then
-			instanceType = "wb"
-        elseif argv[2] == "all" or argv[2] == "a" or argv[2] == "everything" or argv[2] == "any" then
-            instanceType = "all"
-        else
-            return "help", instanceType, addonType
-        end
+        local found, tempType = LOP.findKeyForAlternatives(argv[2], LOP.knownInstanceTypes)
+		--print help on parse error
+		if not found then return "help", instanceType, addonType end
+		instanceType = tempType
     end
-    
-    --parse addon type
+
+    --parse AddOn type
     if argv[3] ~= nil then
-		if argv[3] == "tww" or argv[3] == "current" or argv[3] == "latest" then	
-			addonType = "tww"
-		elseif argv[3] == "df" then
-            addonType = "df"
-        elseif argv[3] == "bfa" then
-            addonType = "bfa"
-        elseif argv[3] == "all" or argv[3] == "a" or argv[3] == "any" then
-            addonType = "all"
-        elseif argv[3] == "classic" or argv[3] ==  "wow" or argv[3] == "c" then
-            addonType = "classic"
-        elseif argv[3] == "bc" then
-            addonType = "bc"
-        elseif argv[3] == "wotlk" or argv[3] == "lk" or argv[3] == "lichking" then
-            addonType = "wotlk"
-        elseif argv[3] == "cata" or argv[3] == "cataclysm" then
-            addonType = "cata"
-        elseif argv[3] == "mop" or argv[3] == "pandaria" then
-            addonType = "mop"
-        elseif argv[3] == "wod" or argv[3] == "draenor" then
-            addonType = "wod"
-        elseif argv[3] == "legion" or argv[3] == "l" then
-            addonType = "legion"
-		elseif argv[3] == "shadowlands" or argv[3] == "sl" then
-            addonType = "sl"
-        else
-            return "help", instanceType, addonType
-        end
+		local found, tempAddon = LOP.findKeyForAlternatives(argv[3], LOP.knownAddOns)
+		--print help on parse error
+		if not found then return "help", instanceType, addonType end
+		addonType = tempAddon
+
     end
     return command, instanceType, addonType
 end
@@ -178,32 +130,32 @@ function LOP.HandleSlash(args)
         LOP.printHelp();
     end
 end
+
 function LOP.getDefaultArguments()
     return lopDefaultCommand, lopDefaultInstanceType, lopDefaultAddon
 end
+
 function LOP.setDefaultArguments(arg_lopDefaultCommand, arg_lopDefaultInstanceType, arg_lopDefaultAddon)
-	if(arg_lopDefaultCommand ~= nil) then
-		if LOP.isPartOfSet(arg_lopDefaultCommand, LOP.allowedCommands) then
-			lopDefaultCommand = arg_lopDefaultCommand
-		else
-			printf(L["LOP: %s is not a valid command. Option is ignored"],arg_lopDefaultCommand);
-		end
+	local foundCommand, tempCommand = LOP.findKeyForAlternatives(arg_lopDefaultCommand, LOP.knownCommands)
+	if foundCommand then
+		lopDefaultCommand = tempCommand
+	else
+		printf(L["LOP: %s is not a valid command. Option is ignored"],arg_lopDefaultCommand);
 	end
-	if(arg_lopDefaultInstanceType ~= nil) then
-		if LOP.isPartOfSet(arg_lopDefaultInstanceType, LOP.allowedInstanceTypes) then
-			lopDefaultInstanceType = arg_lopDefaultInstanceType
-		else
-			printf(L["LOP: %s is not a valid instance type. Option is ignored"],arg_lopDefaultInstanceType)
-		end
+	local foundInstance, tempInstance = LOP.findKeyForAlternatives(arg_lopDefaultInstanceType, LOP.knownInstanceTypes)
+	if foundInstance then
+		lopDefaultInstanceType = tempInstance
+	else
+		printf(L["LOP: %s is not a valid instance type. Option is ignored"],arg_lopDefaultInstanceType)
 	end
-		if(arg_lopDefaultAddon ~= nil) then
-		if LOP.isPartOfSet(arg_lopDefaultAddon, LOP.allowedAddOns) then
-			lopDefaultAddon = arg_lopDefaultAddon
-		else
-			print(L["LOP: %s is not a valid addon. Option is ignored"],arg_lopDefaultAddon)
-		end
+	local foundAddon, tempAddon = LOP.findKeyForAlternatives(arg_lopDefaultAddon, LOP.knownAddOns)
+	if foundAddon then
+		lopDefaultAddon = tempAddon
+	else
+		print(L["LOP: %s is not a valid AddOn. Option is ignored"],arg_lopDefaultAddon)
 	end
 end
+
 --Functionality----------------------------------------------------
 function LOP.PrintSavedInstances(wantedType, wantedAddon)
     instances = GetNumSavedInstances();
@@ -234,7 +186,7 @@ function LOP.PrintSavedInstances(wantedType, wantedAddon)
 				end
 			end
 		else
-			LOP.printMessage(L["No Worldboss locks present"])
+			LOP.printMessage(L["No World Boss locks present"])
 		end
 	end
 end
@@ -320,6 +272,7 @@ function LOP.printPlannedInstances(wantedType, wantedAddon)
 		end
 	end
 end
+
 function LOP.addPlannnedInstance(name)
 	local instanceId = LOP.DB.getID(name)
 	local bossID = LOP.DB.WB.getID(name)
@@ -333,6 +286,7 @@ function LOP.addPlannnedInstance(name)
 		printf(L["%s<LOP> %s is not a valid instance or world boss name"],"|c00ee5555", name)
 	end
 end
+
 function LOP.deletePlannnedInstance(name)
 	local instanceId = LOP.DB.getID(name)
 	local bossID = LOP.DB.WB.getID(name)
@@ -346,12 +300,24 @@ function LOP.deletePlannnedInstance(name)
 		print(L["%s<LOP> %s is not a valid instance or world boss name"],"|c00ee5555", name)
 	end
 end
+
 function LOP.printHelp()
+	local availInstances = ""
+	for key,_ in pairs(LOP.knownInstanceTypes) do
+		availInstances = availInstances .. key .. ", "
+	end
+	availInstances = string.sub(availInstances,1,-3)
+	local availAddons = ""
+	for key,_ in pairs(LOP.knownAddOns) do
+		availAddons = availAddons .. key .. ", "
+	end
+	availAddons = string.sub(availAddons,1,-3)
 	printf(L["<LOP> Available commands"])
 	print("<LOP> ------------------------------")
 	printf("<LOP> /lo show <instanceType> <addOn>: %s", L["prints your instance locks with specified type belonging to specified addon"])
-	printf([[<LOP> %s <instanceTypes>: "raid", "dungeon", "wb", "all"]], L["available"])
-	printf([[<LOP> %s <addOns>: "all","classic","bc","wotlk","cata","mop","wod","legion","bfa", "sl","df","tww"]], L["available"])
+	printf([[<LOP> %s <instanceTypes>: %s]], L["available"], availInstances)
+
+	printf([[<LOP> %s <addOns>: %s]], L["available"], availAddons)
 	printf("<LOP> /lo planned <instanceType> <addOn>: %s", L["prints a list of all your planned instance lockouts and shows which are done"])
 	printf("<LOP> /lo add <name>: %s", L["adds the instance or world boss with given name to the list of planned lockouts"])
 	printf("<LOP> /lo remove <name>: %s", L["removes the instance or world boss with given name from the list of planned lockouts"])
@@ -376,7 +342,6 @@ end
 function LOP.OnEvent(self, event, ...)
     if event == "ADDON_LOADED" and ... == "LockoutPlanner" then
         LOP.initializeCVars();
-		LOP.initializeAllowedLists();
         LOP.registerCommand();
 		LOP.initDB();
         self:UnregisterEvent("ADDON_LOADED");
@@ -394,7 +359,7 @@ function LOP.initDB()
 	LOP.DB.WB.IDData = lopDBWbIDData
 	if lopSavedVars["DBRev"] < LOP.DB.revision or lopSavedVars["DBLocale"] ~= GetLocale() then
 		LOP.DB.IDData = {}
-		for i=0,5000 do
+		for i=0,10000 do
 			v = LOP.DB.NameData[i]
 			if v ~= nil then
 				LOP.DB.IDData[v] = i
@@ -426,41 +391,17 @@ end
 
 function LOP.initializeCVars()
     LOP.log("Init CVars")
-	if(lopDefaultCommand == nil) then 
-		lopDefaultCommand = "show";
-
-	end
-	if(lopDefaultInstanceType == nil) then 
-		lopDefaultInstanceType = "all";
-	end
-	if(lopDefaultAddon == nil) then 
-		lopDefaultAddon = "all";
-	end
-	if(lopPlannedLockouts == nil) then 
-		lopPlannedLockouts = {};
-	end
-	if (lopPlannedBossLockouts == nil) then
-		lopPlannedBossLockouts = {};
-	end
-	if(lopWantsToBroadcast == nil) then
-		lopWantsToBroadcast = true;
-	end
-	if(lopSavedVars == nil) then
-		lopSavedVars = {};
-	end
-	if(lopDBIDData == nil) then
-		lopDBIDData = {};
-	end
-	if(lopDBWbIDData == nil) then
-		lopDBWbIDData = {};
-	end
+	if(lopDefaultCommand == nil) then lopDefaultCommand = "show" end
+	if(lopDefaultInstanceType == nil) then lopDefaultInstanceType = "all" end
+	if(lopDefaultAddon == nil) then lopDefaultAddon = "all" end
+	if(lopPlannedLockouts == nil) then lopPlannedLockouts = {} end
+	if (lopPlannedBossLockouts == nil) then lopPlannedBossLockouts = {} end
+	if(lopWantsToBroadcast == nil) then lopWantsToBroadcast = true end
+	if(lopSavedVars == nil) then lopSavedVars = {} end
+	if(lopDBIDData == nil) then lopDBIDData = {} end
+	if(lopDBWbIDData == nil) then lopDBWbIDData = {} end
 end
 
-function LOP.initializeAllowedLists()
-	LOP.allowedCommands			= LOP.Set{"show","opt","help","log", "planned", "add-planned", "remove-planned"}
-	LOP.allowedInstanceTypes	= LOP.Set{"raid", "dungeon", "wb" , "all"}
-	LOP.allowedAddOns			= LOP.Set{"all","classic","bc","wotlk","cata","mop","wod","legion","bfa","sl"}
-end
 --Executed Code------------------------------------
 LOP.mainFrame = CreateFrame("FRAME", "MyInstanceLocks");
 LOP.mainFrame:RegisterEvent("ADDON_LOADED");
